@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  hole_number: 1
+  fairway: MyString
+  green: MyString
+  chips: 1
+  putts: 1
+  score: 1
+  over_under: 1
+
+two:
+  hole_number: 1
+  fairway: MyString
+  green: MyString
+  chips: 1
+  putts: 1
+  score: 1
+  over_under: 1

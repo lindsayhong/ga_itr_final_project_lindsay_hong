@@ -1,0 +1,39 @@
+<h1><%= @user.first_name %><h1>
+
+<p><%= "Handicap: #{@user.handicap}" %></p>
+<p><%= "Email address: #{@user.email}" %></p>
+
+
+<% if @user.round_users != [] %>
+	<h4><u>My Rounds</u></h4>
+	
+		<table>
+			<tr>
+				<th>Date</th>
+				<th>Course</th>
+				<th>Score</th>
+			</tr>
+			
+			<% @user.round_users.each do |round_user| %>
+				<tr>
+					<td><%= link_to round_user.round.play_date, round_path(round_user.round.id) %></td>
+					<td><%= link_to round_user.round.course_name, round_path(round_user.round.id) %></td>
+					<% total_score = Array.new %>
+					<% round_user.holes.each do |hole| %>
+						<% total_score << hole.score %>
+					<% end %>
+					<td><%= total_score.inject(:+) %></td>
+				</tr>
+			<% end %>
+		</table>
+
+<% end %>
+
+
+<p><%= link_to "Add New Round", new_round_path %></p>
+
+<p><%= link_to "Rounds to Join", rounds_path %></p>
+
+<br> 
+
+<p class="Small"><%= link_to "Update Profile", edit_user_path(current_user.id) %></p>

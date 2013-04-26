@@ -1,0 +1,96 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+body {
+  width: 70%;
+  margin: 0 auto;
+  background: black; /* "mind stay clear" #43AEA8*/
+  color: black; /* Grey 382D2C*/
+	font-family: Calibri;
+	font-size: 15pt;
+  background: url('/assets/putt.jpg');
+
+}
+
+/* LINK COLORS */
+a:link {color: white;} /* general link color C8E3DC*/
+a:visited {color: white;} /* visited link 93D3BB*/
+
+h1, h3, h4 {
+  color: #382D2C; /* Gray */
+  margin: 3pt;
+}
+p {
+  font-size: 16pt;
+  margin: 3pt;
+}
+
+li, ul {
+  font-size: 16pt;
+  color: white;
+}
+
+table {
+  font-size: 13pt;
+  background-color: #ECE5CE; /* D9CEB2*/
+  border: 1px solid black;
+}
+
+th {
+  background-color: #93D3BB; 
+/*  background-color: #93D3BB; */
+  border: 2px solid black;
+}
+
+th.Holes {
+  width: 25px;
+  color: white;
+}
+
+
+th.Labels {
+  width: 115px;
+}
+
+td.Labels {
+  border: 1px solid white;
+}
+
+td.Cells {
+  text-align: center;
+  border: 1px solid white;
+
+}
+
+th.Totals, td.Totals {
+  background: #C8E3DC);
+  text-align: center;
+}
+
+td.Totals {
+	background: white;
+  text-align: center;
+}
+
+table.Hole{
+  width: 350px;
+  font-size: 16pt;
+  background-color: #D9CEB2;
+  border: 1px white;
+  border-radius: 10px;
+}
+
+td {
+  color: #382D2C;
+}

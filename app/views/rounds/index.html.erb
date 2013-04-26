@@ -1,0 +1,25 @@
+<h1>Rounds to Join</h1>
+
+<!-- Find all the current user's rounds, and add them to an array. -->
+<% user_rounds = Array.new %>
+<% current_user.rounds.each do |user_round| %>
+	<% user_round_id = user_round.id %>
+	<% user_rounds << user_round_id %>
+<% end %>
+
+<!-- Check all rounds, and list the ones that the current user is not part of. -->
+<% @rounds.each do |round| %>
+	<% if user_rounds.include?(round.id) %>
+		<% nil %>
+	<% else %>
+		<ul>
+			<li><%= link_to "#{round.play_date} - #{round.course_name}", round_path(round.id) %></li>
+		</ul>
+	<% end %>
+<% end %>
+
+<p><%= link_to "Back to my rounds", user_path(current_user.id) %></p>
+
+<br>
+
+<p><%= link_to "New round", new_round_path %></p>

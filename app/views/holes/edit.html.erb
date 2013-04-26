@@ -1,0 +1,47 @@
+<h1>Hole #<%= @hole.hole_number %></h1>
+
+<%= form_for [@round, @hole] do |form| %>
+	<table class="Hole">
+		
+		<tr>	
+			<td align="right"><%= form.label :hole_number, "Hole number:" %></td>
+			<td align="left"><%= form.text_field :hole_number, value: @hole.hole_number %></td>
+		</tr>
+				
+		<tr>	
+			<td align="right"><%= form.label :fairway, "Fairway:" %></td>
+			<td align="left"><%= form.select(:fairway, options_for_select(@fairway_options, @hole.fairway)) %></td>
+		</tr>
+
+		<tr>	
+			<td align="right"><%= form.label :green, "Green:" %></td>
+			<td align="left"><%= form.select(:green, options_for_select(@green_options, @hole.green)) %></td>
+		</tr>
+
+		<tr>	
+			<td align="right"><%= form.label :chips, "Chips/Pitches:" %></td>
+			<td align="left"><%= form.select(:chips, options_for_select(@chip_putt_options, @hole.chips)) %></td>
+		</tr>
+
+		<tr>	
+			<td align="right"><%= form.label :putts, "Putts:" %></td>
+			<td align="left"><%= form.select(:putts, options_for_select(@chip_putt_options, @hole.putts)) %></td>
+		</tr>
+
+		<tr>	
+			<td align="right"><%= form.label :score, "Score:" %></td>
+			<td align="left"><%= form.select(:score, options_for_select(@score_options, @hole.score)) %></td>
+		</tr>
+
+		<tr>	
+			<td align="right"><%= form.label :over_under, "Over/Under Par:" %></td>
+			<td align="left"><%= form.select(:over_under, options_for_select(@over_under_options, @hole.over_under)) %></td>
+		</tr>
+	
+		<tr>	
+			<td></td>
+			<td align="right"><%= form.submit "Update Hole" %></td>
+		</tr>
+
+	</table>
+<% end %>

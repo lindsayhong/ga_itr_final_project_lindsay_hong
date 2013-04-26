@@ -1,0 +1,26 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+  <title>StatApp</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+
+	<p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+  <% if user_signed_in? %>
+  	<div><%= link_to "Sign out #{current_user.first_name}", destroy_user_session_path, method: :delete %><span style="float: right;"><%= link_to "Profile", user_path(current_user.id) %></span></div>
+  <% else %>
+  	<%= link_to "Sign in", new_user_session_path %>
+  <% end %>
+
+
+<%= yield %>
+
+</body>
+</html>

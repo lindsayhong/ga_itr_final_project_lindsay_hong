@@ -5,11 +5,17 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+#gem 'sqlite3'
+
+group :development do
+  gem 'sqlite3'
+end
+group :production do
+  gem 'pg'
+end
 
 gem "devise", "~> 2.2.3"
 
-gem 'calendar_date_select', :git => 'http://github.com/paneq/calendar_date_select.git', :branch => 'rails3test' 
 
 # Gems used only for assets and not required
 # in production environments by default.

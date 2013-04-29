@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   # attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 
+  validates :first_name, :presence => true
+  validates :last_name, :presence => true
+  validates :handicap, :numericality => { :only_integer => true }
+
   has_many :round_users
   has_many :rounds, through: :round_users
 end

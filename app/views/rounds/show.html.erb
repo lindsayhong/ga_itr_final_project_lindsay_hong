@@ -5,6 +5,7 @@
 <% current_round_user = @round.round_users.where(user_id: current_user.id, round_id: @round.id).first %>
 
 <% if current_round_user != nil %>
+	<h2>My handicap for this round: <%= link_to current_round_user.round_handicap, edit_round_user_path(current_round_user) %></h2>
 	<h3>My Scorecard</h3>
 
 	<table class="Card"> 
@@ -88,7 +89,7 @@
 		</tr>
 
 		<tr>
-			<td class="Labels">Chips/Putts</td>
+			<td class="Labels">Chips/Pitches</td>
 			<% number = 1 %>
 			<% until number == 10 %>
 				<% hole = current_round_user.holes.where(hole_number: number).first %>
@@ -269,13 +270,13 @@
 
 	</table>
 
-	<h3>All Players</h3>
+	<h3>Leaderboard</h3>
 	<table> 
 		<tr>
 			<th class="Labels">Hole #</th>
 			<% number = 1 %> 
 			<% until number == 10 %>
-				<% hole_id = current_round_user.holes.where(hole_number: number).first.try(:id) %>
+				<%# hole_id = current_round_user.holes.where(hole_number: number).first.try(:id) %>
 				<th class="Holes"><%= number %></th>
 <!-- 				<th class="Holes"><%#= link_to number, round_hole_path(round_id: @round.id, id: hole_id) %></th>
  -->				<% number += 1 %>
@@ -321,8 +322,8 @@
 				<% total_score = @summary_score_array.inject(:+) %>
 				<td class="Totals"><%= @summary_score_array[9..17].inject(:+) %></td>
 				<td class="Totals"><%= @summary_score_array.inject(:+) %></td>
-				<td class="Cells"><%= round_user.user.handicap %></td>
-				<td class="Totals"><%= total_score.to_i - round_user.user.handicap %></td>
+				<td class="Cells"><%= round_user.round_handicap %></td>
+				<td class="Totals"><%= total_score.to_i - round_user.round_handicap %></td>
 			</tr>
 			<% end %>
 		</table>

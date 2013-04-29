@@ -3,5 +3,5 @@ class Round < ActiveRecord::Base
   has_many :round_users
   has_many :users, through: :round_users
 
-  # validates :play_date, :tee_time, :course_name
+  validates :play_date, :tee_time, :course_name, :presence => true
 end

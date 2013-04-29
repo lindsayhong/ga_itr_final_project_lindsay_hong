@@ -1,6 +1,17 @@
 class RoundUsersController < ApplicationController
 	before_filter :authenticate_user!
 	
+	def edit
+    @round_user = RoundUser.find(params[:id]) #DOUBLE CHECK THIS LATER.
+  end
+
+
+   def update
+   	@round = RoundUser.find(params[:id]).round
+    @round_user = RoundUser.find(params[:id])
+    @round_user.update_attributes(params[:round_user])
+    redirect_to @round
+  end
 	# def new
 	# 	@round = Round.find(params[:round_id])
 	# 	@round_user = @round.round_users.build

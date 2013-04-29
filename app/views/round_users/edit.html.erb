@@ -1,0 +1,11 @@
+
+<h1>Set your handicap for this round</h1>
+
+<%= form_for [@round, @round_user] do |form|%>
+	<p>
+		<%= form.label :round_handicap, "Handicap for this round:" %>
+		<%= form.text_field :round_handicap, value: current_user.handicap %>
+	</p>
+
+	<p><%= form.submit %></p>
+<% end %>

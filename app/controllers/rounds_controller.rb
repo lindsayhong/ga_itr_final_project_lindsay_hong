@@ -22,7 +22,7 @@ class RoundsController < ApplicationController
 
   def join
     # @round = Round.find(params[:id])
-    RoundUser.create(user: current_user, round_id: @round.id)
+    RoundUser.create(user: current_user, round_id: @round.id, round_handicap: current_user.handicap)
     redirect_to @round
   end
 

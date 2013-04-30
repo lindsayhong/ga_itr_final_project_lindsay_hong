@@ -5,7 +5,7 @@
 <% current_round_user = @round.round_users.where(user_id: current_user.id, round_id: @round.id).first %>
 
 <% if current_round_user != nil %>
-	<h2>My handicap for this round: <%= link_to "hello!", edit_round_user_path(current_round_user) %></h2>
+	<h2>My handicap for this round: <%= link_to current_round_user.round_handicap, edit_round_user_path(current_round_user) %></h2>
 	<h3>My Scorecard</h3>
 
 	<table class="Card"> 
@@ -323,11 +323,7 @@
 				<td class="Totals"><%= @summary_score_array[9..17].inject(:+) %></td>
 				<td class="Totals"><%= @summary_score_array.inject(:+) %></td>
 				<td class="Cells"><%= round_user.round_handicap %></td>
-				<% if round_user.round_handicap == nil %>
-					<td><%= "" %></td>				
-				<% else %>
-					<td class="Totals"><%= total_score.to_i - round_user.round_handicap %></td>
-				<% end %>
+				<td class="Totals"><%= total_score.to_i - round_user.round_handicap %></td>
 			</tr>
 			<% end %>
 		</table>

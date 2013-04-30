@@ -3,7 +3,8 @@
 <%= form_for @round do |form|%>
 	<p>
 		<%= form.label :play_date, "Play date:" %>
-		<%= form.text_field :play_date %>
+		<%#= form.text_field :play_date %>
+		<%= form.datepicker 'play_date', :dateFormat => "yy-mm-dd" %>
 	</p>
 
 	<p>

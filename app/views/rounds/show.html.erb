@@ -322,8 +322,13 @@
 				<% total_score = @summary_score_array.inject(:+) %>
 				<td class="Totals"><%= @summary_score_array[9..17].inject(:+) %></td>
 				<td class="Totals"><%= @summary_score_array.inject(:+) %></td>
-				<td class="Cells"><%= round_user.round_handicap %></td>
-				<td class="Totals"><%= total_score.to_i - round_user.round_handicap %></td>
+				<% if round_user.round_handicap == nil %>
+					<td><%= "" %></td>
+					<td><%= "" %></td>
+				<% else %>
+					<td class="Cells"><%= round_user.round_handicap %></td>
+					<td class="Totals"><%= total_score.to_i - round_user.round_handicap %></td>
+				<% end %>			
 			</tr>
 			<% end %>
 		</table>

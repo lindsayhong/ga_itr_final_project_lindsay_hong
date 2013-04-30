@@ -95,3 +95,7 @@ table.Hole{
 td {
   color: #382D2C;
 }
+
+#ui-datepicker-div { background: rgba(255, 255, 255, 0.7); }
+
+#ui-datepicker-div table.ui-datepicker-calendar {background: #000;}

@@ -20,30 +20,37 @@ class RoundsController < ApplicationController
   	end
   end
 
-  def join
-    # @round = Round.find(params[:id])
+  def join # Controller filter: find_round.
     RoundUser.create(user: current_user, round_id: @round.id, round_handicap: current_user.handicap)
     redirect_to @round
   end
 
-  def leave
-    # @round = Round.find(params[:id])
+  # def create_hole
+  #   @hole_number = params[:hole_number]
+  #   @round = Round.find(params[:id])
+  #   @hole = Hole.create(hole_number: @hole_number)
+  #   redirect_to edit_round_user_hole_path(@round.round_user_id, @hole.id)
+  # end
+
+  def leave # Controller filter: find_round.
     @round_user = RoundUser.where(user_id: current_user.id, round_id: params[:id]).first
     @round_user.destroy
     redirect_to @round
   end
 
-  def show
+  def show # Controller filter: find_round.
     @round_users = @round.round_users
     @number = 1
     @back_nine_number = 10
     @green_array = Array.new
     @fairway_array = Array.new
     @chips_array = Array.new
+    @sand_array = Array.new
     @putts_array = Array.new
     @score_array = Array.new
     @over_under_array = Array.new
     @up_and_down = Array.new
+    @sandies = Array.new
     @score_summary_array = Array.new
     @determine_up_down
   end

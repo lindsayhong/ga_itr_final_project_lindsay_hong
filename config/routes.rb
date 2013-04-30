@@ -11,6 +11,8 @@ StatApp::Application.routes.draw do
 
     get :join, on: :member
     get :leave, on: :member
+
+    # get :create_hole, on: :member
   end
 
   resources :round_users do

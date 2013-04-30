@@ -4,11 +4,6 @@
 	<table class="Hole">
 		
 		<tr>	
-			<td align="right"><%= form.label :hole_number, "Hole number:" %></td>
-			<td align="left"><%= form.text_field :hole_number, value: @hole.hole_number %></td>
-		</tr>
-				
-		<tr>	
 			<td align="right"><%= form.label :fairway, "Fairway:" %></td>
 			<td align="left"><%= form.select(:fairway, options_for_select(@fairway_options, @hole.fairway)) %></td>
 		</tr>
@@ -21,6 +16,11 @@
 		<tr>	
 			<td align="right"><%= form.label :chips, "Chips/Pitches:" %></td>
 			<td align="left"><%= form.select(:chips, options_for_select(@chip_putt_options, @hole.chips)) %></td>
+		</tr>
+
+		<tr>	
+			<td align="right"><%= form.label :sand, "Sand:" %></td>
+			<td align="left"><%= form.select(:sand, options_for_select(@chip_putt_options, @hole.sand)) %></td>
 		</tr>
 
 		<tr>	

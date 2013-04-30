@@ -23,6 +23,11 @@
 			<td align="left"><%= form.select(:chips, options_for_select(@chip_putt_options), {:prompt => "Chips/Pitches"}) %></td>
 		</tr>
 
+		<tr>	
+			<td align="right"><%= form.label :sand, "Sand:" %></td>
+			<td align="left"><%= form.select(:sand, options_for_select(@chip_putt_options), {:prompt => "Sand"}) %></td>
+		</tr>
+
 		<tr>
 			<td align="right"><%= form.label :putts, "Putts:" %></td>
 			<td align="left"><%= form.select(:putts, options_for_select(@chip_putt_options), {:prompt => "Putts"}) %>

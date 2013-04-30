@@ -109,6 +109,30 @@
 			<td class="Totals"><%= @chips_array[9..17].inject(:+) %></td>			
 			<td class="Totals"><%= @chips_array.inject(:+) %></td>			
 		</tr>
+		<!-- ROW: SAND -->
+		<tr>
+			<td class="Labels">Sand</td>
+			<% number = 1 %>
+			<% until number == 10 %>
+				<% hole = current_round_user.holes.where(hole_number: number).first %>
+				<td class="Cells"><%= hole.try(:sand) %></td>
+				<% number += 1 %>
+				<% @sand_array << hole.try(:sand).to_i %>				
+			<% end %>
+			<td class="Totals"><%= @sand_array.inject(:+) %></td>		
+
+			<% number = 10 %>
+			<% until number == 19 %>
+				<% hole = current_round_user.holes.where(hole_number: number).first %>
+				<td class="Cells"><%= hole.try(:sand) %></td>
+				<% number += 1 %>
+				<% @sand_array << hole.try(:sand).to_i %>				
+			<% end %>
+			<td class="Totals"><%= @sand_array[9..17].inject(:+) %></td>			
+			<td class="Totals"><%= @sand_array.inject(:+) %></td>			
+		</tr>
+
+		<!-- ROW: PUTTS -->
 
 		<tr>
 			<td class="Labels">Putts</td>
@@ -183,6 +207,7 @@
 			<% until number == 10 %>
 				<% chips = current_round_user.holes.where(hole_number: number).first.try(:chips).to_i %>
 				<% putts = current_round_user.holes.where(hole_number: number).first.try(:putts).to_i %>
+				
 				<% if current_round_user.holes.where(hole_number: number).first == nil %>
 					<% @determine_up_down = "" %>
 				<% elsif chips == 1 && putts == 1 %>
@@ -204,6 +229,7 @@
 			<% until number == 19 %>
 				<% chips = current_round_user.holes.where(hole_number: number).first.try(:chips).to_i %>
 				<% putts = current_round_user.holes.where(hole_number: number).first.try(:putts).to_i %>
+				
 				<% if current_round_user.holes.where(hole_number: number).first == nil %>
 					<% @determine_up_down = "" %>
 				<% elsif chips == 1 && putts == 1 %>
@@ -223,11 +249,63 @@
 			<% round_total_opportunities = @up_and_down.count { |x| x == "Yes" || x == "No"} %>
 			<td class="Totals"><%= "#{@up_and_down.count("Yes")}/#{round_total_opportunities}" %></td>
 		</tr>
+
+		<tr>
+			<td class="Labels">Sandy</td>
+			<% number = 1 %>
+			<% until number == 10 %>
+				<% sand_shots = current_round_user.holes.where(hole_number: number).first.try(:sand).to_i %>
+				<% putts = current_round_user.holes.where(hole_number: number).first.try(:putts).to_i %>
+				
+				<% if current_round_user.holes.where(hole_number: number).first == nil %>
+					<% @determine_sandy = "" %>
+				<% elsif sand_shots == 1 && putts == 1 %>
+					<% @determine_sandy = "Yes" %>
+				<% elsif sand_shots == 0 %>
+					<% @determine_sandy = "N/A" %>
+				<% else %>
+					<% @determine_sandy = "No" %>
+				<% end %>
+
+				<% @sandies << @determine_sandy %>
+				<td class="Cells"><%= @determine_sandy %></td>
+				<% number += 1 %>
+			<% end %>
+			<% total_opportunities = @sandies.count { |x| x == "Yes" || x == "No"} %>
+			<td class="Totals"><%= "#{@sandies.count("Yes")}/#{total_opportunities}" %></td>
+
+			<% number = 10 %>
+			<% until number == 19 %>
+				<% chips = current_round_user.holes.where(hole_number: number).first.try(:chips).to_i %>
+				<% putts = current_round_user.holes.where(hole_number: number).first.try(:putts).to_i %>
+				
+				<% if current_round_user.holes.where(hole_number: number).first == nil %>
+					<% @determine_sandy = "" %>
+				<% elsif chips == 1 && putts == 1 %>
+					<% @determine_sandy = "Yes" %>
+				<% elsif chips == 0 %>
+					<% @determine_sandy = "N/A" %>
+				<% else %>
+					<% @determine_sandy = "No" %>
+				<% end %>
+
+				<% @sandies << @determine_sandy %>
+				<td class="Cells"><%= @determine_sandy %></td>
+				<% number += 1 %>
+			<% end %>
+			<% total_opportunities = @sandies[9..17].count { |x| x == "Yes" || x == "No"} %>
+			<td class="Totals"><%= "#{@sandies[9..17].count("Yes")}/#{total_opportunities}" %></td>
+			<% round_total_opportunities = @sandies.count { |x| x == "Yes" || x == "No"} %>
+			<td class="Totals"><%= "#{@sandies.count("Yes")}/#{round_total_opportunities}" %></td>
+		</tr>
 	</table>
+
+	<!--SUMMARY OF STATISTICS-->
 
 	<h3>My Statistics</h3>
 	
 	<table>
+
 		<tr>
 			<th></th>
 			<th>Stats</th>
@@ -265,6 +343,16 @@
 				<td class="Cells"><%= 0 %></td>
 			<% else %>
 				<td class="Cells"><%= up_down_calculation.round(3)*100 %>%</td>
+			<% end %>
+		</tr>
+
+		<tr>
+			<td class="Labels">Sandies</td>
+			<% sandy_calculation = @sand_array.count("Yes").to_f/@sand_array.count { |x| x == "Yes" || x == "No" } %>
+			<% if sandy_calculation.to_s == "NaN" %>
+				<td class="Cells"><%= 0 %></td>
+			<% else %>
+				<td class="Cells"><%= sandy_calculation.round(3)*100 %>%</td>
 			<% end %>
 		</tr>
 

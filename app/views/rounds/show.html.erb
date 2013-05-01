@@ -348,7 +348,7 @@
 
 		<tr>
 			<td class="Labels">Sandies</td>
-			<% sandy_calculation = @sand_array.count("Yes").to_f/@sand_array.count { |x| x == "Yes" || x == "No" } %>
+			<% sandy_calculation = @sandies.count("Yes").to_f/@sandies.count { |x| x == "Yes" || x == "No" } %>
 			<% if sandy_calculation.to_s == "NaN" %>
 				<td class="Cells"><%= 0 %></td>
 			<% else %>
@@ -431,10 +431,12 @@
 	
 	<ul>
 		<% @round.round_users.each do |round_user| %>
-			<li><%= round_user.user.email %></li>
+			<li><%= "#{round_user.user.first_name} #{round_user.user.last_name}" %></li>
 		<% end %>
 	</ul>
 	
 	<p><%= link_to "Join Round", join_round_path(@round) %></p>
+
+	<p><%= link_to "<< Back to Rounds to Join", round_path %></p>
 
 <% end %>

@@ -20,7 +20,7 @@ class RoundsController < ApplicationController
   end
 
   def create
-    @round = Round.new(params[:round])
+    @round = Round.find(params[:round])
     @round.created_by = current_user.id
   	
     if @round.save && @round.play_date != nil

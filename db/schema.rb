@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430183546) do
+ActiveRecord::Schema.define(:version => 20130501012648) do
 
   create_table "holes", :force => true do |t|
     t.integer  "hole_number"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20130430183546) do
     t.string   "course_name"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "created_by"
   end
 
   create_table "users", :force => true do |t|

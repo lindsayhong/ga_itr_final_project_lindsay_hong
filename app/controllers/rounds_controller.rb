@@ -6,11 +6,22 @@ class RoundsController < ApplicationController
   end
 
   def new
-  	@round = Round.new
+    @round = Round.new
+  end  
+
+  def edit
+  	@round = Round.find(params[:id])
+  end
+
+  def update
+    @round = Round.find(params[:id])
+    @round.update_attributes(params[:round])
+    redirect_to @round
   end
 
   def create
     @round = Round.new(params[:round])
+    @round.created_by = current_user.id
   	
     if @round.save || @round.play_date != nil
       RoundUser.create(user: current_user, round: @round, round_handicap: current_user.handicap)

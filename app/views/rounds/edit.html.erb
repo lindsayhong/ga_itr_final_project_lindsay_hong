@@ -1,0 +1,22 @@
+<h1>Edit Round</h1>
+
+<%= form_for @round do |form|%>
+	<p>
+		<%= form.label :play_date, "Play date:" %>
+		<%#= form.text_field :play_date %>
+
+		<%= form.datepicker "play_date", :dateFormat => "yy-mm-dd" %>
+	</p>
+
+	<p>
+		<%= form.label :tee_time, "Tee time:" %>
+		<%= form.text_field :tee_time %>
+	</p>
+
+	<p>
+		<%= form.label :course_name, "Course name:" %>
+		<%= form.text_field :course_name %>
+	</p>
+
+	<p><%= form.submit %></p>
+<% end %>

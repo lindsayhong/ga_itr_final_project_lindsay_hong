@@ -23,7 +23,7 @@ class RoundsController < ApplicationController
     @round = Round.new(params[:round])
     @round.created_by = current_user.id
   	
-    if @round.save || @round.play_date != nil
+    if @round.save && @round.play_date != nil
       RoundUser.create(user: current_user, round: @round, round_handicap: current_user.handicap)
   		redirect_to @round
   	else

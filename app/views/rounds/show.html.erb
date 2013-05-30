@@ -53,7 +53,7 @@
 				<td class="Cells"><%= hole.try(:fairway) %></td>
 				<% number += 1 %>
 			<% end %>
-			<% total_front_fairway = (@fairway_array.count("Yes") + @fairway_array.count("No")) %>
+			<% total_front_fairway = yes_no_total(@fairway_array) %>
 			<td class="Totals"><%= "#{@fairway_array.count("Yes")}/#{total_front_fairway}" %></td>
 
 			<% number = 10 %>
@@ -63,10 +63,9 @@
 				<td class="Cells"><%= hole.try(:fairway) %></td>
 				<% number += 1 %>
 			<% end %>
-			<% total_back_fairway = @fairway_array[9..17].count { |x| x == "Yes" || x == "No" }  %>
+			<% total_back_fairway = back_nine_total(@fairway_array) %>
 			<td class="Totals"><%= "#{@fairway_array[9..17].count("Yes")}/#{total_back_fairway}" %></td>
-			<% total_fairway = @fairway_array.count { |x| x == "Yes" || x == "No"} %>
-			<td class="Totals"><%= "#{@fairway_array.count("Yes")}/#{total_fairway}" %></td>
+			<td class="Totals"><%= "#{yes_count(@fairway_array)}/#{yes_no_total(@fairway_array)}" %></td>
 		</tr>
 
 		<tr>
@@ -78,8 +77,8 @@
 				<td class="Cells"><%= hole.try(:green) %></td>
 				<% number += 1 %>
 			<% end %>
-			<% total_front_green = @green_array.count { |x| x == "Yes" || x == "No" } %>
-			<td class="Totals"><%= "#{@green_array.count("Yes")}/#{total_front_green}" %></td>	
+			<% total_front_green = yes_no_total(@green_array) %>
+			<td class="Totals"><%= "#{yes_count(@green_array)}/#{total_front_green}" %></td>	
 
 			<% number = 10 %>
 			<% until number == 19 %>
@@ -88,10 +87,9 @@
 				<td class="Cells"><%= hole.try(:green) %></td>
 				<% number += 1 %>
 			<% end %>
-			<% total_back_green = @green_array[9..17].count("Yes") + @green_array[9..17].count("No") %>
-			<td class="Totals"><%= "#{@green_array[9..17].count("Yes")}/#{total_back_green}" %></td>	
-			<% total_green = total_front_green + total_back_green %>	
-			<td class="Totals"><%= "#{@green_array[9..17].count("Yes")}/#{total_green}" %></td>		
+
+			<td class="Totals"><%= "#{yes_count(@green_array)}/#{back_nine_total(@green_array)}" %></td>	
+			<td class="Totals"><%= "#{yes_count(@green_array)}/#{yes_no_total(@green_array)}" %></td>		
 		</tr>
 
 		<tr>
@@ -134,8 +132,8 @@
 				<% number += 1 %>
 				<% @sand_array << hole.try(:sand).to_i %>				
 			<% end %>
-			<td class="Totals"><%= @sand_array[9..17].inject(:+) %></td>			
-			<td class="Totals"><%= @sand_array.inject(:+) %></td>			
+			<td class="Totals"><%= sum_back_nine(@sand_array) %></td>			
+			<td class="Totals"><%= sum_full_array(@sand_array) %></td>			
 		</tr>
 
 		<!-- ROW: PUTTS -->
@@ -211,98 +209,50 @@
 			<td class="Labels">Up & Down</td>
 			<% number = 1 %>
 			<% until number == 10 %>
-				<% chips = current_round_user.holes.where(hole_number: number).first.try(:chips).to_i %>
-				<% putts = current_round_user.holes.where(hole_number: number).first.try(:putts).to_i %>
-				
-				<% if current_round_user.holes.where(hole_number: number).first == nil %>
-					<% @determine_up_down = "" %>
-				<% elsif chips == 1 && putts == 1 %>
-					<% @determine_up_down = "Yes" %>
-				<% elsif chips == 0 %>
-					<% @determine_up_down = "N/A" %>
-				<% else %>
-					<% @determine_up_down = "No" %>
-				<% end %>
-
-				<% @up_and_down << @determine_up_down %>
-				<td class="Cells"><%= @determine_up_down %></td>
+				<% hole = current_round_user.holes.where(hole_number: number).first %>
+				<% @up_and_down << hole.try(:up_and_down) %>
+				<td class="Cells"><%= hole.try(:up_and_down) %></td>
 				<% number += 1 %>
 			<% end %>
-			<% total_opportunities = @up_and_down.count { |x| x == "Yes" || x == "No"} %>
-			<td class="Totals"><%= "#{@up_and_down.count("Yes")}/#{total_opportunities}" %></td>
+
+			<td class="Totals"><%= "#{yes_count(@up_and_down)}/#{yes_no_total(@up_and_down)}" %></td>
 
 			<% number = 10 %>
 			<% until number == 19 %>
-				<% chips = current_round_user.holes.where(hole_number: number).first.try(:chips).to_i %>
-				<% putts = current_round_user.holes.where(hole_number: number).first.try(:putts).to_i %>
-				
-				<% if current_round_user.holes.where(hole_number: number).first == nil %>
-					<% @determine_up_down = "" %>
-				<% elsif chips == 1 && putts == 1 %>
-					<% @determine_up_down = "Yes" %>
-				<% elsif chips == 0 %>
-					<% @determine_up_down = "N/A" %>
-				<% else %>
-					<% @determine_up_down = "No" %>
-				<% end %>
-
-				<% @up_and_down << @determine_up_down %>
-				<td class="Cells"><%= @determine_up_down %></td>
+				<% hole = current_round_user.holes.where(hole_number: number).first %>
+				<td class="Cells"><%= hole.try(:up_and_down) %></td>
+				<% @up_and_down << hole.try(:up_and_down) %>
 				<% number += 1 %>
 			<% end %>
-			<% total_opportunities = @up_and_down[9..17].count { |x| x == "Yes" || x == "No"} %>
-			<td class="Totals"><%= "#{@up_and_down[9..17].count("Yes")}/#{total_opportunities}" %></td>
-			<% round_total_opportunities = @up_and_down.count { |x| x == "Yes" || x == "No"} %>
-			<td class="Totals"><%= "#{@up_and_down.count("Yes")}/#{round_total_opportunities}" %></td>
+			
+			<td class="Totals"><%= "#{back_nine_yes_count(@up_and_down)}/#{back_nine_total(@up_and_down)}" %></td>
+			
+			<td class="Totals"><%= "#{yes_count(@up_and_down)}/#{yes_no_total(@up_and_down)}" %></td>
 		</tr>
 
 		<tr>
 			<td class="Labels">Sandy</td>
+
 			<% number = 1 %>
 			<% until number == 10 %>
-				<% sand_shots = current_round_user.holes.where(hole_number: number).first.try(:sand).to_i %>
-				<% putts = current_round_user.holes.where(hole_number: number).first.try(:putts).to_i %>
-				
-				<% if current_round_user.holes.where(hole_number: number).first == nil %>
-					<% @determine_sandy = "" %>
-				<% elsif sand_shots == 1 && putts == 1 %>
-					<% @determine_sandy = "Yes" %>
-				<% elsif sand_shots == 0 %>
-					<% @determine_sandy = "N/A" %>
-				<% else %>
-					<% @determine_sandy = "No" %>
-				<% end %>
-
-				<% @sandies << @determine_sandy %>
-				<td class="Cells"><%= @determine_sandy %></td>
+				<% hole = current_round_user.holes.where(hole_number: number).first %>
+				<% @sandies << hole.try(:sandy) %>
+				<td class="Cells"><%= hole.try(:sandy) %></td>
 				<% number += 1 %>
 			<% end %>
-			<% total_opportunities = @sandies.count { |x| x == "Yes" || x == "No"} %>
-			<td class="Totals"><%= "#{@sandies.count("Yes")}/#{total_opportunities}" %></td>
+
+			<td class="Totals"><%= "#{yes_count(@sandies)}/#{yes_no_total(@sandies)}" %></td>
 
 			<% number = 10 %>
 			<% until number == 19 %>
-				<% chips = current_round_user.holes.where(hole_number: number).first.try(:chips).to_i %>
-				<% putts = current_round_user.holes.where(hole_number: number).first.try(:putts).to_i %>
-				
-				<% if current_round_user.holes.where(hole_number: number).first == nil %>
-					<% @determine_sandy = "" %>
-				<% elsif chips == 1 && putts == 1 %>
-					<% @determine_sandy = "Yes" %>
-				<% elsif chips == 0 %>
-					<% @determine_sandy = "N/A" %>
-				<% else %>
-					<% @determine_sandy = "No" %>
-				<% end %>
-
-				<% @sandies << @determine_sandy %>
-				<td class="Cells"><%= @determine_sandy %></td>
+				<% hole = current_round_user.holes.where(hole_number: number).first %>
+				<td class="Cells"><%= hole.try(:sandy) %></td>
+				<% @sandies << hole.try(:sandy) %>
 				<% number += 1 %>
 			<% end %>
-			<% total_opportunities = @sandies[9..17].count { |x| x == "Yes" || x == "No"} %>
-			<td class="Totals"><%= "#{@sandies[9..17].count("Yes")}/#{total_opportunities}" %></td>
-			<% round_total_opportunities = @sandies.count { |x| x == "Yes" || x == "No"} %>
-			<td class="Totals"><%= "#{@sandies.count("Yes")}/#{round_total_opportunities}" %></td>
+
+			<td class="Totals"><%= "#{back_nine_yes_count(@sandies)}/#{back_nine_total(@sandies)}" %></td>
+			<td class="Totals"><%= "#{@sandies.count("Yes")}/#{yes_no_total(@sandies)}" %></td>
 		</tr>
 	</table>
 
@@ -319,7 +269,7 @@
 
 		<tr>
 			<td class="Labels">Fairways in Regulation</td>
-			<% fairway_calculation = (@fairway_array.count("Yes").to_f)/(@fairway_array.count { |x| x == "Yes" || x == "No"}) %>
+			<% fairway_calculation = calculate_sandies(@fairway_array) %>
 			<% if fairway_calculation.to_s == "NaN" %>
 				<td class="Cells"><%= 0 %></td>
 			<% else %>
@@ -329,7 +279,7 @@
 		
 		<tr>
 			<td class="Labels">Greens in Regulation</td>
-			<% green_calculation = @green_array.count("Yes").to_f/@green_array.count { |x| x == "Yes" || x == "No"} %>
+			<% green_calculation = calculate_sandies(@green_array) %>
 			<% if green_calculation.to_s == "NaN" %>
 				<td class="Cells"><%= 0 %></td>
 			<% else %>
@@ -344,7 +294,7 @@
 
 		<tr>
 			<td class="Labels">Up and Downs</td>
-			<% up_down_calculation = @up_and_down.count("Yes").to_f/@up_and_down.count { |x| x == "Yes" || x == "No" } %>
+			<% up_down_calculation = calculate_sandies(@up_and_down) %>
 			<% if up_down_calculation.to_s == "NaN" %>
 				<td class="Cells"><%= 0 %></td>
 			<% else %>
@@ -354,7 +304,7 @@
 
 		<tr>
 			<td class="Labels">Sandies</td>
-			<% sandy_calculation = @sandies.count("Yes").to_f/@sandies.count { |x| x == "Yes" || x == "No" } %>
+			<% sandy_calculation = calculate_sandies(@sandies) %>
 			<% if sandy_calculation.to_s == "NaN" %>
 				<td class="Cells"><%= 0 %></td>
 			<% else %>
@@ -396,7 +346,6 @@
 				<td class="Labels"><%= round_user.user.first_name %></td>
 
 				<% number = 1 %>
-					<% @summary_score_array = Array.new %>
 				<% until number == 10 %>
 					<% hole = round_user.holes.where(hole_number: number).first %>
 					<td class="Cells"><%= hole.try(:score) %></td>

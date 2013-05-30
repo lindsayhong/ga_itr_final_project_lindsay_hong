@@ -4,13 +4,12 @@
 	<table class="Hole">
 		
 		<tr>	
-			<td align="right"><%= form.label :hole_number, "Hole number:" %></td>
-			<td align="left"><%= form.text_field :hole_number, value: @hole_number %></td>
+			<%= form.hidden_field :hole_number, value: @hole_number %>
 		</tr>
 
 		<tr>
 			<td align="right"><%= form.label :fairway, "Fairway:" %></td>
-			<td align="left"><%= form.select(:fairway, options_for_select(@fairway_options), {:prompt => "Fairway"}) %></td>
+			<td align="left"><%= form.select(:fairway, options_for_select(@yes_no_na_options), {:prompt => "Fairway"}) %></td>
 		</tr>
 	
 		<tr>	
@@ -24,13 +23,23 @@
 		</tr>
 
 		<tr>	
-			<td align="right"><%= form.label :sand, "Sand:" %></td>
-			<td align="left"><%= form.select(:sand, options_for_select(@chip_putt_options), {:prompt => "Sand"}) %></td>
+			<td align="right"><%= form.label :sand, "Sand Shots:" %></td>
+			<td align="left"><%= form.select(:sand, options_for_select(@chip_putt_options), {:prompt => "Sand Shots"}) %></td>
 		</tr>
 
 		<tr>
 			<td align="right"><%= form.label :putts, "Putts:" %></td>
 			<td align="left"><%= form.select(:putts, options_for_select(@chip_putt_options), {:prompt => "Putts"}) %>
+		</tr>
+		
+		<tr>
+			<td align="right"><%= form.label :up_and_down, "Up and Down:" %></td>
+			<td align="left"><%= form.select(:up_and_down, options_for_select(@yes_no_na_options), {:prompt => "Up and Down"}) %></td>
+		</tr>
+		
+		<tr>
+			<td align="right"><%= form.label :sandy, "Sandy:" %></td>
+			<td align="left"><%= form.select(:sandy, options_for_select(@yes_no_na_options), {:prompt => "Sandy"}) %>
 		</tr>
 	
 		<tr>

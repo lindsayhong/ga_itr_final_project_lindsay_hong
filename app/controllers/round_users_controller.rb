@@ -5,8 +5,7 @@ class RoundUsersController < ApplicationController
     @round_user = RoundUser.find(params[:id]) #DOUBLE CHECK THIS LATER.
   end
 
-
-   def update
+  def update
    	@round = RoundUser.find(params[:id]).round
     @round_user = RoundUser.find(params[:id])
     @round_user.update_attributes(params[:round_user])
@@ -26,4 +25,8 @@ class RoundUsersController < ApplicationController
 	# 		render action: :new
 	# 	end
 	# end
+	def update_greens_in_regulation
+		
+	end
+
 end

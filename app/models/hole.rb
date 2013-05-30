@@ -8,5 +8,12 @@ class Hole < ActiveRecord::Base
 
   # # :fairway, :green, :chips, :sand, :putts, :score, :over_under, :presence => true
 
+  after_save :update_stats
+
+  private
+
+  def update_stats
+  	
+  end
 
 end

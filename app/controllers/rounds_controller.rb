@@ -2,7 +2,7 @@ class RoundsController < ApplicationController
   before_filter :authenticate_user!, :find_round, only: [:join, :leave, :show]
 
   def index
-  	@rounds = Round.all
+    @rounds = Round.all
   end
 
   def new
@@ -64,6 +64,7 @@ class RoundsController < ApplicationController
     @sandies = Array.new
     @score_summary_array = Array.new
     @determine_up_down
+    @summary_score_array = Array.new
   end
 
   private

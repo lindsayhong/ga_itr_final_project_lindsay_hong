@@ -5,7 +5,7 @@
 		
 		<tr>	
 			<td align="right"><%= form.label :fairway, "Fairway:" %></td>
-			<td align="left"><%= form.select(:fairway, options_for_select(@fairway_options, @hole.fairway)) %></td>
+			<td align="left"><%= form.select(:fairway, options_for_select(@yes_no_na_options, @hole.fairway)) %></td>
 		</tr>
 
 		<tr>	
@@ -26,6 +26,14 @@
 		<tr>	
 			<td align="right"><%= form.label :putts, "Putts:" %></td>
 			<td align="left"><%= form.select(:putts, options_for_select(@chip_putt_options, @hole.putts)) %></td>
+		</tr>		
+
+		<tr>	
+			<td align="right"><%= form.label :up_and_down, "Up and Down:" %></td>
+			<td align="left"><%= form.select(:up_and_down, options_for_select(@yes_no_na_options, @hole.up_and_down)) %></td>
+		</tr>		<tr>	
+			<td align="right"><%= form.label :sandy, "Sandy:" %></td>
+			<td align="left"><%= form.select(:sandy, options_for_select(@yes_no_na_options, @hole.sandy)) %></td>
 		</tr>
 
 		<tr>	
@@ -42,6 +50,10 @@
 			<td></td>
 			<td align="right"><%= form.submit "Update Hole" %></td>
 		</tr>
-
+		
+		<tr>
+			<td></td>
+			<td align="right" class="button"><%= link_to "Cancel", round_path(@round.id), class: "cancel"%></td>
+		</tr>	
 	</table>
 <% end %>

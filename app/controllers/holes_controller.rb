@@ -5,7 +5,7 @@ class HolesController < ApplicationController
     @round = Round.find(params[:round_id])
   	@hole = Hole.new
     @hole_number = params[:hole_number]
-    @fairway_options = ["Yes", "No", "N/A"]
+    @yes_no_na_options = ["Yes", "No", "N/A"]
     @green_options = ["Yes", "No"]
     @score_options = (0..15).to_a
     @chip_putt_options = (0..5).to_a
@@ -15,7 +15,7 @@ class HolesController < ApplicationController
   def edit
     @round = Round.find(params[:round_id])
     @hole = Hole.find(params[:id])
-    @fairway_options = ["Yes", "No", "N/A"]
+    @yes_no_na_options = ["Yes", "No", "N/A"]
     @green_options = ["Yes", "No"]
     @score_options = (0..15).to_a
     @chip_putt_options = (0..5).to_a

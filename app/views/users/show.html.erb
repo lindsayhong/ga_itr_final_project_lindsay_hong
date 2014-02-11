@@ -2,10 +2,10 @@
 	<h1><%= @user.first_name %><h1>
 
 	<p><%= "Handicap: #{@user.handicap}" %></p>
-	<p><%= "Email address: #{@user.email}" %></p>
+	<p><%= "#{@user.email}" %></p>
 
 	<% if @user.round_users != [] %>
-		<h4><u>My Rounds</u></h4>
+		<h4><u><br></u></h4>
 		
 			<table>
 				<tr>
@@ -19,32 +19,68 @@
 					<th>% Up and Down</th>
 					<th>% Sandies</th>
 					<th>Total Putts</th>
-
 				</tr>
 				
 				<% @user.round_users.each do |round_user| %>
-				<% @total_rounds += 1 %>
+					<% @total_rounds += 1 %>
 					<tr>
 						<td><%= link_to round_user.round.play_date, round_path(round_user.round.id) %></td>
 						<td><%= link_to round_user.round.course_name, round_path(round_user.round.id) %></td>
+						
 						<% total_score = Array.new %>
+						<% total_fairways_in_regulation = Array.new %>
+						<% total_greens_in_regulation = Array.new %>
+						<% total_chips = Array.new %>
+						<% total_sand_shots = Array.new %>
+						<% total_up_and_downs = Array.new %>
+						<% total_sandies = Array.new %>
+						<% total_putts = Array.new %>
+						
 						<% round_user.holes.each do |hole| %>
 							<% total_score << hole.score %>
+							<% @overall_score << hole.score %>
+							<% total_fairways_in_regulation << hole.fairway %>
+							<% @overall_fairway_array << hole.fairway %>
+							<% total_greens_in_regulation << hole.green %>
+							<% @overall_green_array << hole.green %>
+							<% total_chips << hole.chips %>
+							<% @overall_chips_array << hole.chips %>
+							<% total_sand_shots << hole.sand %>
+							<% @overall_sand_shots_array << hole.sand %>
+							<% total_up_and_downs << hole.up_and_down %>
+							<% @overall_up_and_down << hole.up_and_down %>
+							<% total_sandies << hole.sandy %>
+							<% @overall_sandies << hole.sandy %>
+							<% total_putts << hole.putts %>
+							<% @overall_putts_array << hole.putts %>
 						<% end %>
+						
 						<td><%= total_score.inject(:+) %></td>
-						<td><%#= find_yes_no_stat(:fairway) %></td>
+
+						<td><%= "#{total_percentage(total_fairways_in_regulation)}%" %></td>						
+
+						<td><%= "#{total_percentage(total_greens_in_regulation)}%" %></td>
+
+						<td><%= "#{total_chips}" %></td>
+
+						<td><%= "#{total_sand_shots}" %></td>
+
+						<td><%= "#{total_percentage(total_up_and_downs)}%" %></td>
+						
+						<td><%= "#{total_percentage(total_sandies)}%" %></td>
+
+						<td><%= "#{total_putts}" %></td>
 					</tr>
 				<% end %>
 			</table>
-
 	<% end %>
 
 	<%= "Toal Rounds = #{@total_rounds}" %>
 
 	<br>
 
-			<h3>My Overall Statistics</h3>
-		
+	<h3>Overall Statistics</h3>
+
 		<table>
 			<tr>
 				<th></th>
@@ -52,32 +88,41 @@
 			</tr>
 
 			<tr>
+				<td class="Labels">Average Score</td>
+				<td class="Cells"><%= (sum_full_array(@overall_score)/@total_rounds).round(2) %></td>
+			</tr>
+
+			<tr>
 				<td class="Labels">Fairways in Regulation</td>
-				<td class="Cells"><%=  %>%</td>
+				<td class="Cells"><%= total_percentage(@overall_fairway_array) %>%</td>
 			</tr>
 			
 			<tr>
 				<td class="Labels">Greens in Regulation</td>
-				<td class="Cells"><%=  %>%</td>
+				<td class="Cells"><%= total_percentage(@overall_green_array) %>%</td>
 			</tr>
 			
 			<tr>
-				<td class="Labels">Three Putts</td>
+				<td class="Labels">Average Putts</td>
 				<td class="Cells"><%=  %></td>
 			</tr>
 
 			<tr>
 				<td class="Labels">Up and Downs</td>
-				<td class="Cells"><%=  %>%</td>
+				<td class="Cells"><%= total_percentage(@overall_up_and_down) %>%</td>
 			</tr>
 
 			<tr>
 				<td class="Labels">Sandies</td>
-				<td class="Cells"><%=  %>%</td>
+				<td class="Cells"><%= total_percentage(@overall_sandies) %>%</td>
 			</tr>
 		</table>
 
-	<p><%= link_to "Add New Round", new_round_path %></p>
+	<br>
+
+	<p><%= link_to "+ Add New Round", new_round_path %></p>
+
+	<br>
 
 	<p><%= link_to "Rounds to Join", rounds_path %></p>
 

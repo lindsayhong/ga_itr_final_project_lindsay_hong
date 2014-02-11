@@ -1,34 +1,33 @@
-	<div id="container">
+<div id="container">
 	<h1><%= @round.course_name %></h1>
 
-	<h3><%= "#{format_date(@round.play_date)} at #{format_time(@round.tee_time)}" %></h3>
+	<h3><%= "#{format_date(@round.play_date)}" %></h3>
+	<h4><%= "#{format_time(@round.tee_time)}" %></h4>
 
 	<!--Only the user who created the round can edit the round information.-->
 	<% if current_user.id == @round.created_by %>
-		<h5><%= link_to "Edit Round", edit_round_path %></h5>
+		<h6><%= link_to "Edit Round", edit_round_path %></h6>
 	<% end %>
 
 	<% if @current_round_user != nil %>
-		<h2>My handicap for this round: <%= link_to @current_round_user.round_handicap, edit_round_user_path(@current_round_user) %></h2>
+		<h4>Round handicap: <%= link_to @current_round_user.round_handicap, edit_round_user_path(@current_round_user) %></h4>
 		<h3>My Scorecard</h3>
 
 		<table class="Card"> 
 			<tr>
 				<th class="Labels">Hole #</th>
 				<% until @number == 10 %>
-					<th class="Holes">
-					<%= link_hole_number(@number) %>
+					<th class="Holes"><%= link_hole_number(@number) %></th>
 					<% @number += 1 %>
 				<% end %>
 			
 				<th class ="Totals">OUT</th>
 
 				<% until @back_nine_number == 19 %>
-
-					<th class="Holes">
-					<%= link_hole_number(@back_nine_number) %>
+					<th class="Holes"><%= link_hole_number(@back_nine_number) %></th>
 					<% @back_nine_number += 1 %>
 				<% end %>
+				
 				<th class="Totals">IN</th>
 				<th class="Totals">TOTAL</th>
 			</tr>
@@ -132,7 +131,7 @@
 			</tr>
 
 			<tr>
-				<td class="Labels">Score</td>
+				<td class="Labels Score">Score</td>
 				<% @number = 1 %>
 				<% until @number == 10 %>
 					<td class="Cells"><%= add_stat_to_array_integer(@score_array, :score) %></td>
@@ -218,6 +217,7 @@
 			</tr>
 		</table>
 
+		<br>
 		<!--SUMMARY OF STATISTICS-->
 
 		<h3>My Statistics</h3>
@@ -239,6 +239,11 @@
 			</tr>
 			
 			<tr>
+				<td class="Labels">Total Putts</td>
+				<td class="Cells"><%= @putts_array.inject(:+) %></td>
+			</tr>
+
+			<tr>
 				<td class="Labels">Three Putts</td>
 				<td class="Cells"><%= @putts_array.count{ |x| x >= 3 } %></td>
 			</tr>
@@ -253,6 +258,8 @@
 				<td class="Cells"><%= total_percentage(@sandies) %>%</td>
 			</tr>
 		</table>
+
+		<br>
 
 		<!--SUMMARY OF ROUNDUSERS-->
 

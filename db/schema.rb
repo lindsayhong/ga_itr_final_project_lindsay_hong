@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507035323) do
+ActiveRecord::Schema.define(:version => 20140116053705) do
 
   create_table "holes", :force => true do |t|
     t.integer  "hole_number"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(:version => 20130507035323) do
     t.string   "up_and_down"
     t.integer  "sand"
     t.string   "sandy"
+  end
+
+  create_table "players", :force => true do |t|
+    t.string   "player_first_name"
+    t.string   "player_last_name"
+    t.integer  "player_handicap"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "round_users", :force => true do |t|

@@ -13,14 +13,9 @@
  */
 
 body {
-  width: 70%;
-  margin: 0 auto;
-  background: black; /* "mind stay clear" #43AEA8*/
-  color: black; /* Grey 382D2C*/
-	font-family: Calibri;
+  background: white; /* "mind stay clear" #43AEA8*/
+	font-family: Roboto, sans-serif;
 	font-size: 15pt;
-  background: url('/assets/putt.jpg');
-
 }
 
 /* LINK COLORS */
@@ -49,7 +44,7 @@ table {
 }
 
 th {
-  background-color: #93D3BB; 
+  background-color: #F0F5CD; 
 /*  background-color: #93D3BB; */
   border: 2px solid black;
 }

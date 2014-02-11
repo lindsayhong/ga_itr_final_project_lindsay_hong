@@ -1,11 +1,13 @@
-module RoundsHelper
-  def format_date(date)
-    date.strftime("%B %-d, %Y")
-  end
-
-  def format_time(time)
-    time.strftime("%-l:%M %p")
-  end
+module UsersHelper
+  # find_yes_no_stat(stat)
+  #   array = Array.new
+  #   number = 1
+  #   until number == 18
+  #     hole = @current_round_user.holes.where(hole_number: number).first
+  #     array << hole.try(stat)
+  #   end
+  #   array.count("Yes")/(array.count { |x| x == "Yes" || x == "No" })
+  # end
 
   def add_stat_to_array_string(array, stat)
     hole = @current_round_user.holes.where(hole_number: @number).first
@@ -32,16 +34,13 @@ module RoundsHelper
   end
 
 # Calculate sandies and up and downs.
-  def calculate_sandies(sandies)
-    sandies.count("Yes").to_f/yes_no_total(sandies)
-  end
 
-  def test(array)
-    fairway_calculation = calculate_sandies(array)
-    if fairway_calculation.to_s == "NaN"
+  def total_percentage(array)
+    calculate_percentage = array.count("Yes").to_f/yes_no_total(array)
+    if calculate_percentage.to_s == "NaN"
       0
     else
-      fairway_calculation.round(3)*100
+      (calculate_percentage*100).round(2)
     end
   end
 

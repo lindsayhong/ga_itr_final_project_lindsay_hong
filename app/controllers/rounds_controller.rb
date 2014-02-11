@@ -50,6 +50,7 @@ class RoundsController < ApplicationController
   end
 
   def show # Controller filter: find_round.
+    @current_round_user = @round.round_users.where(user_id: current_user.id, round_id: @round.id).first
     @round_users = @round.round_users
     @number = 1
     @back_nine_number = 10
@@ -62,9 +63,6 @@ class RoundsController < ApplicationController
     @over_under_array = Array.new
     @up_and_down = Array.new
     @sandies = Array.new
-    @score_summary_array = Array.new
-    @determine_up_down
-    @summary_score_array = Array.new
   end
 
   private

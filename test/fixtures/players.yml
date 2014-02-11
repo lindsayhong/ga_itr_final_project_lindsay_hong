@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  player_first_name: MyString
+  player_last_name: MyString
+  player_handicap: 1
+
+two:
+  player_first_name: MyString
+  player_last_name: MyString
+  player_handicap: 1

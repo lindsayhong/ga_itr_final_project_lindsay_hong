@@ -116,7 +116,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
-  devise (~> 2.2.3)
+  devise
   jquery-rails
   jquery_datepicker
   pg

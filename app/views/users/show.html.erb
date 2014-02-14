@@ -79,45 +79,47 @@
 
 	<br>
 
-	<h3>Overall Statistics</h3>
+	<% if @total_round == 0 %>	
+		<h3>Overall Statistics</h3>
 
-		<table>
-			<tr>
-				<th></th>
-				<th>Stats</th>
-			</tr>
+			<table>
+				<tr>
+					<th></th>
+					<th>Stats</th>
+				</tr>
 
-			<tr>
-				<td class="Labels">Average Score</td>
-				<td class="Cells"><%= (sum_full_array(@overall_score)/@total_rounds).round(2) %></td>
-			</tr>
+				<tr>
+					<td class="Labels">Average Score</td>
+					<td class="Cells"><%= (sum_full_array(@overall_score)/@total_rounds).round(2) %></td>
+				</tr>
 
-			<tr>
-				<td class="Labels">Fairways in Regulation</td>
-				<td class="Cells"><%= total_percentage(@overall_fairway_array) %>%</td>
-			</tr>
-			
-			<tr>
-				<td class="Labels">Greens in Regulation</td>
-				<td class="Cells"><%= total_percentage(@overall_green_array) %>%</td>
-			</tr>
-			
-			<tr>
-				<td class="Labels">Average Putts</td>
-				<td class="Cells"><%=  %></td>
-			</tr>
+				<tr>
+					<td class="Labels">Fairways in Regulation</td>
+					<td class="Cells"><%= total_percentage(@overall_fairway_array) %>%</td>
+				</tr>
+				
+				<tr>
+					<td class="Labels">Greens in Regulation</td>
+					<td class="Cells"><%= total_percentage(@overall_green_array) %>%</td>
+				</tr>
+				
+				<tr>
+					<td class="Labels">Average Putts</td>
+					<td class="Cells"><%=  %></td>
+				</tr>
 
-			<tr>
-				<td class="Labels">Up and Downs</td>
-				<td class="Cells"><%= total_percentage(@overall_up_and_down) %>%</td>
-			</tr>
+				<tr>
+					<td class="Labels">Up and Downs</td>
+					<td class="Cells"><%= total_percentage(@overall_up_and_down) %>%</td>
+				</tr>
 
-			<tr>
-				<td class="Labels">Sandies</td>
-				<td class="Cells"><%= total_percentage(@overall_sandies) %>%</td>
-			</tr>
-		</table>
+				<tr>
+					<td class="Labels">Sandies</td>
+					<td class="Cells"><%= total_percentage(@overall_sandies) %>%</td>
+				</tr>
+			</table>
 
+		<% end %>
 	<br>
 
 	<p><%= link_to "+ Add New Round", new_round_path %></p>

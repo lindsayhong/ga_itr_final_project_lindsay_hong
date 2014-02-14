@@ -17,7 +17,7 @@ group :production do
   gem 'pg'
 end
 
-gem "devise", "~> 2.2.3"
+gem "devise" #, "~> 2.2.3"
 
 
 # Gems used only for assets and not required

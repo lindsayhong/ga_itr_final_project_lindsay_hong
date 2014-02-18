@@ -1,10 +1,17 @@
 <h1>Hole #<%= @hole_number %></h1>
 
 <%= form_for [@round, @hole] do |form| %>
+	<ul>
+		<% @hole.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+	</ul>
+	
 	<table class="Hole">
 		
 		<tr>	
 			<%= form.hidden_field :hole_number, value: @hole_number %>
+			<%= hidden_field_tag :hole_number, params[:hole_number] %>
 		</tr>
 
 		<tr>
@@ -50,6 +57,7 @@
 		<tr>
 			<td align="right"><%= form.label :over_under, "Over/Under Par:" %></td>
 			<td align="left"><%= form.select(:over_under, options_for_select(@over_under_options), {:prompt => "Over/Under Par"}) %></td>
+		</tr>
 
 		<tr>
 			<td></td>

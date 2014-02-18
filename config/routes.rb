@@ -19,6 +19,10 @@ StatApp::Application.routes.draw do
     resources :holes
   end
 
+  resources :round_players do
+    resources :holes
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

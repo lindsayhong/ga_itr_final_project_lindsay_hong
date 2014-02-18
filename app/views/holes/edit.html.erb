@@ -2,6 +2,12 @@
 	<h1>Hole #<%= @hole.hole_number %></h1>
 
 	<%= form_for [@round, @hole] do |form| %>
+		<ul>
+			<% @hole.errors.full_messages.each do |message| %>
+				<li><%= message %></li>
+			<% end %>
+		</ul>
+
 		<table class="Hole">
 			
 			<tr>	

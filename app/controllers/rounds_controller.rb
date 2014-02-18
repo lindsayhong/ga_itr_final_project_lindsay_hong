@@ -46,7 +46,7 @@ class RoundsController < ApplicationController
   def leave # Controller filter: find_round.
     @round_user = RoundUser.where(user_id: current_user.id, round_id: params[:id]).first
     @round_user.destroy
-    redirect_to @round
+    redirect_to current_user
   end
 
   def show # Controller filter: find_round.

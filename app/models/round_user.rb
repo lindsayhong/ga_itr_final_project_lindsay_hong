@@ -4,7 +4,6 @@ class RoundUser < ActiveRecord::Base
   belongs_to :round
   has_many :holes
 
-
   after_create :create_stats
 
   private

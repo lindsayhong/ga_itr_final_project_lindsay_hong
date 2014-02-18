@@ -31,7 +31,12 @@ class HolesController < ApplicationController
 
   def create
     @round = Round.find(params[:round_id])
-    
+    @hole_number = params[:hole_number]
+    @yes_no_na_options = ["Yes", "No", "N/A"]
+    @green_options = ["Yes", "No"]
+    @score_options = (0..15).to_a
+    @chip_putt_options = (0..5).to_a
+    @over_under_options = (-3..5).to_a
     @round_user = RoundUser.where(round_id: @round.id, user_id: current_user.id).first # RoundUser object ties together.
     @hole = @round_user.holes.build(params[:hole]) #build hole object based on what user typed in.
 

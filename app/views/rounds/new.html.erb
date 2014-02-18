@@ -1,10 +1,15 @@
 <h1>Add New Round</h1>
 
 <%= form_for @round do |form|%>
+
+	<ul>
+		<% @round.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+	</ul>
+	
 	<p>
 		<%= form.label :play_date, "Play date:" %>
-		<%#= form.text_field :play_date %>
-
 		<%= form.datepicker "play_date", :dateFormat => "yy-mm-dd" %>
 	</p>
 
